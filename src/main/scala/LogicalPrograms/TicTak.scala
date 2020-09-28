@@ -1,0 +1,5 @@
+package LogicalPrograms
+
+object TicTak {
+
+}
