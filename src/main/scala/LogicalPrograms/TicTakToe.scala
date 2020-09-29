@@ -100,7 +100,8 @@ object TicTakToe {
         println(resultWinner)
         if (resultWinner == computerValue) println("The winner is Computer")
         else if (resultWinner == playerValue) println("The winner is Player")
-        else println("The Game is Draw")
+        else if (resultWinner=="gameOver") println("The Game is Draw")
+        else println("game Struck")
         display()
         exit
       }
@@ -130,8 +131,9 @@ object TicTakToe {
     isHorizontal()
     isVertical()
     isDiagonal()
+    val tie="gameOver"
     val drawCheck=draw
-    if (drawCheck && winner == " ") "tie"
+    if (drawCheck && winner == null) tie
     else winner
   }
   var LoopListH: Array[Int] = Array(0,3,6)
