@@ -146,6 +146,29 @@ object TicTacToe {
       }
     }
   }
+  def checkWinningPosition(position: ListBuffer[Int]): Int = {
+    val winningPosition = Array(Array(0, 1, 2), Array(3, 4, 5), Array(6, 7, 8), Array(0, 3, 6), Array(1, 4, 7), Array(2, 5, 8), Array(0, 4, 8), Array(2, 4, 6))
+    var arrayStart = 0
+    val emptyPosition = new ListBuffer[Int]
+    while (arrayStart < winningPosition.length) {
+      var count = 0
+      emptyPosition.clear()
+      for (winningPositionStart <- arrayIntial until winningPosition(arrayStart).length) {
+        if (position.contains(winningPosition(arrayStart)(winningPositionStart))) {
+          count += 1
+        }
+        else {
+          emptyPosition.append(winningPosition(arrayStart)(winningPositionStart))
+        }
+      }
+
+      if (count == 2 && emptyPosition.length == 1 && board(emptyPosition.head) == " ") {
+        return emptyPosition.head
+      }
+      arrayStart += 1
+    }
+    -1
+  }
   //check winner function
   def checkWinner: String =  {
     isHorizontal()
