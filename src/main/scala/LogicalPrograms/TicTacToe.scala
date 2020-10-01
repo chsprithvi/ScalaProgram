@@ -146,6 +146,46 @@ object TicTacToe {
       }
     }
   }
+  //check winner function
+  def checkWinner: String =  {
+    isHorizontal()
+    isVertical()
+    isDiagonal()
+    val tie="gameOver"
+    val drawCheck=draw
+    if (drawCheck && winner == null) tie
+    else winner
+  }
+  var LoopListH: Array[Int] = Array(0,3,6)
+  // horizontal
+  def isHorizontal(): Unit = {
+    for (position <- LoopListH) {
+      if ((board(position) equals board(position+1)) && (board(position) equals board(position+2)) && (board(position)!=" "))
+        winner = board(position)
+    }
+  }
+  var LoopListV: Array[Int] = Array(0,1,2)
+  // Vertical
+  def isVertical(): Unit = {
+    for (position <- LoopListV) {
+      if ((board(position) equals board(position+3)) && (board(position) equals board(position+6)) && (board(position)!=" "))
+        winner = board(position)
+    }
+  }
+
+  // Diagonal
+  def isDiagonal(): Unit = {
+    if ((board(0) equals board(4))&&(board(0) equals board(8))&&(board(0)!=" ")) winner = board(0)
+    if ((board(2) equals board(6))&&(board(2) equals board(4))&&(board(2)!=" ")) winner = board(2)
+  }
+
+  //Checking for draw
+  def draw: Boolean = {
+    for (position <- arrayIntial until arrLength) {
+      if (board(position) == " ") return false
+    }
+    true
+  }
   def main(args: Array[String]): Unit = {
     println(" %%%%%%% TicTakToe %%%%%%% ")
     play
