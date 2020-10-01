@@ -117,34 +117,7 @@ object TicTacToe {
       computerPosition.append(move)
       return
     }
-    val blockMove = checkWinningPosition(playerPosition)
-    if (blockMove != -1 && moveValid(blockMove)) {
-      board(blockMove) = computerValue
-      computerPosition.append(blockMove)
-      return
-    }
-    val cornerPositions: Array[Int] = Array(0, 2, 6, 8)
-    for (cornerMove <- cornerPositions) {
-      if (moveValid(cornerMove)) {
-        board(cornerMove) = computerValue
-        computerPosition.append(cornerMove)
-        return
-      }
-    }
-    move = 4
-    if (moveValid(move)) {
-      board(move) = computerValue
-      computerPosition.append(move)
-      return
-    }
-    val sidePositions: Array[Int] = Array(1, 3, 5, 7)
-    for (sideMove <- sidePositions) {
-      if (moveValid(sideMove)) {
-        board(sideMove) = computerValue
-        computerPosition.append(sideMove)
-        return
-      }
-    }
+    
   }
   def checkWinningPosition(position: ListBuffer[Int]): Int = {
     val winningPosition = Array(Array(0, 1, 2), Array(3, 4, 5), Array(6, 7, 8), Array(0, 3, 6), Array(1, 4, 7), Array(2, 5, 8), Array(0, 4, 8), Array(2, 4, 6))
