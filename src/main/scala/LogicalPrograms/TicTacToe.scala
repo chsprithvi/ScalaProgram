@@ -131,7 +131,14 @@ object TicTacToe {
         return
       }
     }
- 
+    move = 4
+    if (moveValid(move)) {
+      board(move) = computerValue
+      computerPosition.append(move)
+      return
+    }
+   
+    }
   }
   def checkWinningPosition(position: ListBuffer[Int]): Int = {
     val winningPosition = Array(Array(0, 1, 2), Array(3, 4, 5), Array(6, 7, 8), Array(0, 3, 6), Array(1, 4, 7), Array(2, 5, 8), Array(0, 4, 8), Array(2, 4, 6))
