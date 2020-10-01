@@ -1,9 +1,13 @@
-package LogicalPrograms
-
+import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
+import scala.sys.exit
 import scala.util.Random
 
 object TicTacToe {
+  def main(args: Array[String]): Unit = {
+    println(" %%%%%%% TicTakToe %%%%%%% ")
+    play()
+  }
   var row = 3
   var column =3
   var arrayIntial=0
@@ -11,24 +15,31 @@ object TicTacToe {
   var board = new Array[String](arrLength)
   var playerValue:String = _
   var computerValue:String = _
+  val playerPosition = new ListBuffer[Int]()
+  val computerPosition = new ListBuffer[Int]()
+  var winner:String = _
   val tossValue: Int = toss
- //function to reset board
+  //function to reset board
   def resetBoard(): Unit = {
     for (position <- arrayIntial until arrLength){
       board(position)=" "
     }
   }
-  //function to display
-  def display(): Unit = {
-    println("| " + board(0) + " | " + board(1) + " | " + board(2) + " |\n|-----------|\n| " + board(3) + " | " + board(4) + " | " + board(5) + " |\n|-----------|\n| " + board(6) + " | " + board(7) + " | " + board(8) + " |")
-  }
+
   //Function play to start game
   def play(): Unit = {
     resetBoard()
     display()
     if (tossValue == 1) playerChoice()
     else computerChoice()
+    gamePlay(tossValue)
   }
+
+  //function to display
+  def display(): Unit = {
+    println("| " + board(0) + " | " + board(1) + " | " + board(2) + " |\n|-----------|\n| " + board(3) + " | " + board(4) + " | " + board(5) + " |\n|-----------|\n| " + board(6) + " | " + board(7) + " | " + board(8) + " |")
+  }
+
   //function to check if player or computer chance
   def toss: Int = {
     // Generating a random number b/w 0 and 1
@@ -38,6 +49,7 @@ object TicTacToe {
     else println("Computer Chance to Play")
     checkOption
   }
+
   //function to consider player choice
   def playerChoice(): Unit = {
     while (true){
@@ -110,6 +122,14 @@ object TicTacToe {
       else tossResultCheck= 1
     }
   }
+
+  //function to check valid or invalid move
+  def moveValid(move: Int): Boolean = {
+    if (board(move) equals " ") true
+    else false
+  }
+
+  //function to play computer move
   def computerMove(): Unit = {
     var move = checkWinningPosition(computerPosition)
     if (move != -1 && moveValid(move)) {
@@ -137,9 +157,16 @@ object TicTacToe {
       computerPosition.append(move)
       return
     }
-   
+    val sidePositions: Array[Int] = Array(1, 3, 5, 7)
+    for (sideMove <- sidePositions) {
+      if (moveValid(sideMove)) {
+        board(sideMove) = computerValue
+        computerPosition.append(sideMove)
+        return
+      }
     }
   }
+  //function to check any winning positions available
   def checkWinningPosition(position: ListBuffer[Int]): Int = {
     val winningPosition = Array(Array(0, 1, 2), Array(3, 4, 5), Array(6, 7, 8), Array(0, 3, 6), Array(1, 4, 7), Array(2, 5, 8), Array(0, 4, 8), Array(2, 4, 6))
     var arrayStart = 0
@@ -189,22 +216,16 @@ object TicTacToe {
         winner = board(position)
     }
   }
-
   // Diagonal
   def isDiagonal(): Unit = {
     if ((board(0) equals board(4))&&(board(0) equals board(8))&&(board(0)!=" ")) winner = board(0)
     if ((board(2) equals board(6))&&(board(2) equals board(4))&&(board(2)!=" ")) winner = board(2)
   }
-
   //Checking for draw
   def draw: Boolean = {
     for (position <- arrayIntial until arrLength) {
       if (board(position) == " ") return false
     }
     true
-  }
-  def main(args: Array[String]): Unit = {
-    println(" %%%%%%% TicTakToe %%%%%%% ")
-    play
   }
 }
