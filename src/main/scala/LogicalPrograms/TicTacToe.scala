@@ -5,7 +5,7 @@ import scala.util.Random
 
 object TicTacToe {
   def main(args: Array[String]): Unit = {
-    println(" %%%%%%% TicTakToe %%%%%%% ")
+    println(" %%%%%%%% TicTakToe %%%%%%% ")
     play()
   }
   var row = 3
